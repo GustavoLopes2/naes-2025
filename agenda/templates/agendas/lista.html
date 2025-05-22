@@ -40,12 +40,10 @@
                                 <a href="{% url 'editar-'|add:model_name obj.pk %}" class="btn btn-sm btn-outline-warning me-1" title="Editar">
                                     <i class="bi bi-pencil-fill"></i>
                                 </a>
-                                <!-- Modal trigger -->
                                 <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modalExcluir{{ obj.pk }}" title="Excluir">
                                     <i class="bi bi-trash-fill"></i>
                                 </button>
 
-                                <!-- Modal de confirmação -->
                                 <div class="modal fade" id="modalExcluir{{ obj.pk }}" tabindex="-1" aria-labelledby="modalLabel{{ obj.pk }}" aria-hidden="true">
                                   <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">

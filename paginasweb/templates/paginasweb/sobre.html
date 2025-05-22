@@ -1,7 +1,47 @@
-{% extends "paginasweb/modelo.html" %}
+{% extends "paginasweb/modelos/base.html" %}
 {% load static %}
 
-{%block conteudo%}
-<h1>Sobre nós</h1>
+{% block title %}Sobre Nós{% endblock %}
 
+{% block header %}
+<div class="text-center mb-4">
+    <h2 class="fw-bold">Sobre o Projeto</h2>
+    <p class="text-muted">Informações e diagramas do sistema TaskFlow</p>
+</div>
+{% endblock %}
+
+{% block conteudo %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+
+        <div class="card shadow-sm border-0 p-4 mb-4">
+            <h5 class="fw-bold mb-3">📋 Descrição do Projeto</h5>
+            <p class="fs-5">
+                O <strong>TaskFlow</strong> é um sistema de gerenciamento de tarefas desenvolvido com o objetivo de facilitar a organização de rotinas pessoais e profissionais.
+                Ele permite o controle completo de tarefas, projetos, categorias, etiquetas, comentários e anexos, promovendo uma gestão eficiente do tempo e das atividades.
+            </p>
+            <p class="fs-5">
+                Além das funcionalidades essenciais de cadastro e edição, o sistema foi estruturado para manter um código limpo, reutilizável e com foco em usabilidade. A navegação é fluida,
+                os formulários são claros, e os dados são organizados de forma visualmente agradável — tornando o TaskFlow uma base sólida para projetos maiores ou personalizações futuras.
+            </p>
+        </div>
+
+        <div class="card shadow-sm border-0 p-4 mb-4">
+            <h5 class="fw-bold mb-3">📘 Diagrama de Caso de Uso</h5>
+            <div class="text-center">
+                <img src="{% static 'images/diagramaDeUso.svg' %}" alt="Diagrama de Caso de Uso"
+                     class="img-fluid border rounded" style="max-width: 100%; max-height: 500px;" loading="lazy">
+            </div>
+        </div>
+
+        <div class="card shadow-sm border-0 p-4 mb-5">
+            <h5 class="fw-bold mb-3">📘 Diagrama de Classe</h5>
+            <div class="text-center">
+                <img src="{% static 'images/diagramaClasse.svg' %}" alt="Diagrama de Classe"
+                     class="img-fluid border rounded" style="max-width: 100%; max-height: 500px;" loading="lazy">
+            </div>
+        </div>
+
+    </div>
+</div>
 {% endblock %}
