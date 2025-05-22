@@ -1,62 +1,65 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Gerenciador de Tarefas</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+{% extends "paginasweb/modelos/base.html" %}
+{% load static %}
 
-    <!-- Bootstrap 5 CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+{% block title %}Início - Gerenciador de Tarefas{% endblock %}
 
-    <style>
-        body {
-            padding-top: 70px;
-            padding-bottom: 60px;
-        }
-        footer {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            height: 60px;
-            background-color: #f8f9fa;
-        }
-    </style>
-</head>
-<body>
+{% block header %}
+<div class="text-center mb-5">
+    <h1>Bem-vindo ao seu Gerenciador de Tarefas</h1>
+    <p class="lead text-muted">Organize seu trabalho e sua vida de forma eficiente e com estilo.</p>
+</div>
+{% endblock %}
 
-<!-- Header fixo -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <div class="container">
-        <a class="navbar-brand" href="#">Gerenciador de Tarefas</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+{% block conteudo %}
+<div class="row g-4 justify-content-center">
+    {% comment %} Cards de acesso às listagens {% endcomment %}
+    <div class="col-md-4">
+        <a href="{% url 'listar-tarefas' %}" class="text-decoration-none text-dark">
+            <div class="card action-card p-4 text-center">
+                <i class="bi bi-check2-square fs-1 text-primary mb-3"></i>
+                <h5>Tarefas</h5>
+            </div>
+        </a>
     </div>
-</nav>
-
-<!-- Conteúdo principal -->
-<main class="container text-center">
-    <h1 class="mb-4">Bem-vindo!</h1>
-    <p class="lead">Gerencie suas tarefas, projetos e produtividade de forma simples e eficiente.</p>
-
-    <div class="row justify-content-center mt-5">
-        <div class="col-md-4 d-grid gap-2">
-            <a href="{% url 'cadastrar-tarefa' %}" class="btn btn-primary btn-lg">Cadastrar Tarefa</a>
-            <a href="{% url 'cadastrar-projeto' %}" class="btn btn-secondary btn-lg">Cadastrar Projeto</a>
-            <a href="{% url 'cadastrar-categoria' %}" class="btn btn-success btn-lg">Cadastrar Categoria</a>
-            <a href="{% url 'cadastrar-etiqueta' %}" class="btn btn-warning btn-lg text-white">Cadastrar Etiqueta</a>
-            <a href="{% url 'cadastrar-comentario' %}" class="btn btn-info btn-lg text-white">Cadastrar Comentário</a>
-            <a href="{% url 'cadastrar-anexo' %}" class="btn btn-dark btn-lg">Cadastrar Anexo</a>
-        </div>
+    <div class="col-md-4">
+        <a href="{% url 'listar-projetos' %}" class="text-decoration-none text-dark">
+            <div class="card action-card p-4 text-center">
+                <i class="bi bi-kanban fs-1 text-secondary mb-3"></i>
+                <h5>Projetos</h5>
+            </div>
+        </a>
     </div>
-</main>
-
-<!-- Rodapé fixo -->
-<footer class="text-center text-muted py-3">
-    <small>&copy; 2025 - Sistema de Gerenciamento de Tarefas</small>
-</footer>
-
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+    <div class="col-md-4">
+        <a href="{% url 'listar-categorias' %}" class="text-decoration-none text-dark">
+            <div class="card action-card p-4 text-center">
+                <i class="bi bi-tag fs-1 text-success mb-3"></i>
+                <h5>Categorias</h5>
+            </div>
+        </a>
+    </div>
+    <div class="col-md-4">
+        <a href="{% url 'listar-etiquetas' %}" class="text-decoration-none text-dark">
+            <div class="card action-card p-4 text-center">
+                <i class="bi bi-bookmark-star fs-1 text-warning mb-3"></i>
+                <h5>Etiquetas</h5>
+            </div>
+        </a>
+    </div>
+    <div class="col-md-4">
+        <a href="{% url 'listar-comentarios' %}" class="text-decoration-none text-dark">
+            <div class="card action-card p-4 text-center">
+                <i class="bi bi-chat-left-dots fs-1 text-info mb-3"></i>
+                <h5>Comentários</h5>
+            </div>
+        </a>
+    </div>
+    <div class="col-md-4">
+        <a href="{% url 'listar-anexos' %}" class="text-decoration-none text-dark">
+            <div class="card action-card p-4 text-center">
+                <i class="bi bi-paperclip fs-1 text-dark mb-3"></i>
+                <h5>Anexos</h5>
+            </div>
+        </a>
+    </div>
+</div>
+{% endblock %}
