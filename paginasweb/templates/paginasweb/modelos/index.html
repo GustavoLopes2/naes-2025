@@ -1,64 +1,43 @@
-{% extends "paginasweb/modelos/base.html" %}
+{% extends "paginasweb/index.html" %}
 {% load static %}
 
-{% block title %}Início - Gerenciador de Tarefas{% endblock %}
-
 {% block header %}
-<div class="text-center mb-5">
-    <h1>Bem-vindo ao seu Gerenciador de Tarefas</h1>
-    <p class="lead text-muted">Organize seu trabalho e sua vida de forma eficiente e com estilo.</p>
+<div class="text-center">
+    <div class="badge bg-gradient-primary-to-secondary text-white mb-4">
+        <div class="text-uppercase">
+            Projeto Acadêmico &middot; Engenharia de Software
+        </div>
+    </div>
+    <div class="fs-3 fw-light text-muted">Organize seu tempo com mais eficiência</div>
+    <h1 class="display-3 fw-bolder mb-5"><span class="text-gradient d-inline">TaskFlow</span></h1>
+
+    <div class="d-grid gap-3 d-sm-flex justify-content-center mb-3">
+        {% if request.user.is_authenticated %}
+            <a class="btn btn-success btn-lg px-5 py-3 me-sm-3 fs-6 fw-bolder" href="{% url 'index' %}">Minhas Tarefas</a>
+            <a class="btn btn-outline-danger btn-lg px-5 py-3 fs-6 fw-bolder" href="{% url 'logout' %}">Sair</a>
+        {% else %}
+            <a class="btn btn-success btn-lg px-5 py-3 me-sm-3 fs-6 fw-bolder" href="{% url 'login' %}">Entrar</a>
+            <a class="btn btn-outline-primary btn-lg px-5 py-3 fs-6 fw-bolder" href="{% url 'cadastro' %}">Registrar-se</a>
+        {% endif %}
+    </div>
 </div>
-{% endblock %}
+{% endblock header %}
 
 {% block conteudo %}
-<div class="row g-4 justify-content-center">
-    <div class="col-md-4">
-        <a href="{% url 'listar-tarefas' %}" class="text-decoration-none text-dark">
-            <div class="card action-card p-4 text-center">
-                <i class="bi bi-check2-square fs-1 text-primary mb-3"></i>
-                <h5>Tarefas</h5>
-            </div>
-        </a>
+<div class="row align-items-center my-5">
+    <div class="col-lg-6">
+        <div class="text-center text-lg-start">
+            <h2 class="display-5 fw-bolder"><span class="text-gradient d-inline">Sobre o sistema</span></h2>
+            <p class="lead fw-light mb-4">Gerencie suas tarefas, projetos e categorias de forma centralizada.</p>
+            <p class="text-muted">
+                O <strong>TaskFlow</strong> é um sistema desenvolvido como parte de um projeto acadêmico que visa simplificar a gestão de atividades diárias.
+                Permite a criação, categorização e acompanhamento de tarefas, além de possibilitar a inclusão de comentários, anexos e etiquetas para uma organização completa.
+            </p>
+        </div>
     </div>
-    <div class="col-md-4">
-        <a href="{% url 'listar-projetos' %}" class="text-decoration-none text-dark">
-            <div class="card action-card p-4 text-center">
-                <i class="bi bi-kanban fs-1 text-secondary mb-3"></i>
-                <h5>Projetos</h5>
-            </div>
-        </a>
-    </div>
-    <div class="col-md-4">
-        <a href="{% url 'listar-categorias' %}" class="text-decoration-none text-dark">
-            <div class="card action-card p-4 text-center">
-                <i class="bi bi-tag fs-1 text-success mb-3"></i>
-                <h5>Categorias</h5>
-            </div>
-        </a>
-    </div>
-    <div class="col-md-4">
-        <a href="{% url 'listar-etiquetas' %}" class="text-decoration-none text-dark">
-            <div class="card action-card p-4 text-center">
-                <i class="bi bi-bookmark-star fs-1 text-warning mb-3"></i>
-                <h5>Etiquetas</h5>
-            </div>
-        </a>
-    </div>
-    <div class="col-md-4">
-        <a href="{% url 'listar-comentarios' %}" class="text-decoration-none text-dark">
-            <div class="card action-card p-4 text-center">
-                <i class="bi bi-chat-left-dots fs-1 text-info mb-3"></i>
-                <h5>Comentários</h5>
-            </div>
-        </a>
-    </div>
-    <div class="col-md-4">
-        <a href="{% url 'listar-anexos' %}" class="text-decoration-none text-dark">
-            <div class="card action-card p-4 text-center">
-                <i class="bi bi-paperclip fs-1 text-dark mb-3"></i>
-                <h5>Anexos</h5>
-            </div>
-        </a>
+
+    <div class="col-lg-6 text-center">
+        <img src="{% static 'images/taskflow_logo.png' %}" class="img-fluid" style="max-width: 300px;" alt="Logo TaskFlow">
     </div>
 </div>
-{% endblock %}
+{% endblock conteudo %}

@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+LOGIN_REDIRECT_URL = '/agendas/'
+LOGOUT_REDIRECT_URL = '/usuario/login/'
 
 # Application definition
 
@@ -39,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'crispy_forms',
     'crispy_bootstrap5',
+    'usuario',
 
     'paginasweb.apps.PaginaswebConfig',
     'agenda.apps.AgendaConfig'

@@ -2,9 +2,10 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 from django.urls import reverse_lazy
 from .models import Task, Category, Project, Comment, Attachment, Label
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class TaskCreate(CreateView):
+class TaskCreate(LoginRequiredMixin, CreateView):
     template_name = "agendas/form.html"
     model = Task
     success_url = reverse_lazy("listar-tarefas")
@@ -12,7 +13,7 @@ class TaskCreate(CreateView):
     extra_context = {"titulo": "Cadastro de Tarefa",
                      "model_name": "tarefas"}
 
-class CategoryCreate(CreateView):
+class CategoryCreate(LoginRequiredMixin, CreateView):
     template_name = "agendas/form.html"
     model = Category
     success_url = reverse_lazy("listar-categorias")
@@ -21,7 +22,7 @@ class CategoryCreate(CreateView):
                      "model_name": "categorias"}
 
 
-class ProjectCreate(CreateView):
+class ProjectCreate(LoginRequiredMixin, CreateView):
     template_name = "agendas/form.html"
     model = Project
     success_url = reverse_lazy("listar-projetos")
@@ -30,7 +31,7 @@ class ProjectCreate(CreateView):
                      "model_name": "projetos"}
 
 
-class CommentCreate(CreateView):
+class CommentCreate(LoginRequiredMixin, CreateView):
     template_name = "agendas/form.html"
     model = Comment
     success_url = reverse_lazy("listar-comentarios")
@@ -39,7 +40,7 @@ class CommentCreate(CreateView):
                      "model_name": "comentarios"}
 
 
-class AttachmentCreate(CreateView):
+class AttachmentCreate(LoginRequiredMixin, CreateView):
     template_name = "agendas/form.html"
     model = Attachment
     success_url = reverse_lazy("listar-anexos")
@@ -48,7 +49,7 @@ class AttachmentCreate(CreateView):
                      "model_name": "anexos"}
 
 
-class LabelCreate(CreateView):
+class LabelCreate(LoginRequiredMixin, CreateView):
     template_name = "agendas/form.html"
     model = Label
     success_url = reverse_lazy("listar-etiquetas")
@@ -58,7 +59,7 @@ class LabelCreate(CreateView):
 
 
 # Edit Views
-class TaskUpdate(UpdateView):
+class TaskUpdate(LoginRequiredMixin, UpdateView):
     template_name = "agendas/form.html"
     model = Task
     success_url = reverse_lazy("listar-tarefas")
@@ -66,8 +67,7 @@ class TaskUpdate(UpdateView):
     extra_context = {"titulo": "Editar Tarefa",
                      "model_name": "tarefas"}
 
-
-class CategoryUpdate(UpdateView):
+class CategoryUpdate(LoginRequiredMixin, UpdateView):
     template_name = "agendas/form.html"
     model = Category
     success_url = reverse_lazy("listar-categorias")
@@ -76,7 +76,7 @@ class CategoryUpdate(UpdateView):
                      "model_name": "categorias"}
 
 
-class ProjectUpdate(UpdateView):
+class ProjectUpdate(LoginRequiredMixin, UpdateView):
     template_name = "agendas/form.html"
     model = Project
     success_url = reverse_lazy("listar-projetos")
@@ -85,7 +85,7 @@ class ProjectUpdate(UpdateView):
                      "model_name": "projetos"}
 
 
-class CommentUpdate(UpdateView):
+class CommentUpdate(LoginRequiredMixin, UpdateView):
     template_name = "agendas/form.html"
     model = Comment
     success_url = reverse_lazy("listar-comentarios")
@@ -94,7 +94,7 @@ class CommentUpdate(UpdateView):
                      "model_name": "comentarios"}
 
 
-class AttachmentUpdate(UpdateView):
+class AttachmentUpdate(LoginRequiredMixin, UpdateView):
     template_name = "agendas/form.html"
     model = Attachment
     success_url = reverse_lazy("listar-anexos")
@@ -103,7 +103,7 @@ class AttachmentUpdate(UpdateView):
                      "model_name": "anexos"}
 
 
-class LabelUpdate(UpdateView):
+class LabelUpdate(LoginRequiredMixin, UpdateView):
     template_name = "agendas/form.html"
     model = Label
     success_url = reverse_lazy("listar-etiquetas")
@@ -113,37 +113,37 @@ class LabelUpdate(UpdateView):
 
 
 #Delete Views
-class TaskDelete(DeleteView):
+class TaskDelete(LoginRequiredMixin, DeleteView):
     template_name = "agendas/form.html"
     model = Task
     success_url = reverse_lazy("listar-tarefas")
     extra_context = {"titulo": "Deletar Tarefa"}
 
-class CategoryDelete(DeleteView):
+class CategoryDelete(LoginRequiredMixin, DeleteView):
     template_name = "agendas/form.html"
     model = Category
     success_url = reverse_lazy("listar-categorias")
     extra_context = {"titulo": "Deletar Categoria"}
 
-class ProjectDelete(DeleteView):
+class ProjectDelete(LoginRequiredMixin, DeleteView):
     template_name = "agendas/form.html"
     model = Project
     success_url = reverse_lazy("listar-projetos")
     extra_context = {"titulo": "Deletar Projeto"}
 
-class CommentDelete(DeleteView):
+class CommentDelete(LoginRequiredMixin, DeleteView):
     template_name = "agendas/form.html"
     model = Comment
     success_url = reverse_lazy("listar-comentarios")
     extra_context = {"titulo": "Deletar Comentário"}
 
-class AttachmentDelete(DeleteView):
+class AttachmentDelete(LoginRequiredMixin, DeleteView):
     template_name = "agendas/form.html"
     model = Attachment
     success_url = reverse_lazy("listar-anexos")
     extra_context = {"titulo": "Deletar Anexo"}
 
-class LabelDelete(DeleteView):
+class LabelDelete(LoginRequiredMixin, DeleteView):
     template_name = "agendas/form.html"
     model = Label
     success_url = reverse_lazy("listar-etiquetas")
@@ -151,7 +151,7 @@ class LabelDelete(DeleteView):
 
 
 # List Views
-class TaskList(ListView):
+class TaskList(LoginRequiredMixin, ListView):
     model = Task
     template_name = "agendas/lista.html"
     extra_context = {
@@ -163,7 +163,7 @@ class TaskList(ListView):
         "model_name": "tarefa"
     }
 
-class CategoryList(ListView):
+class CategoryList(LoginRequiredMixin, ListView):
     model = Category
     template_name = "agendas/lista.html"
     extra_context = {
@@ -175,7 +175,7 @@ class CategoryList(ListView):
         "model_name": "categoria"
     }
 
-class ProjectList(ListView):
+class ProjectList(LoginRequiredMixin, ListView):
     model = Project
     template_name = "agendas/lista.html"
     extra_context = {
@@ -187,7 +187,7 @@ class ProjectList(ListView):
         "model_name": "projeto"
     }
 
-class CommentList(ListView):
+class CommentList(LoginRequiredMixin, ListView):
     model = Comment
     template_name = "agendas/lista.html"
     extra_context = {
@@ -199,7 +199,7 @@ class CommentList(ListView):
         "model_name": "comentario"
     }
 
-class AttachmentList(ListView):
+class AttachmentList(LoginRequiredMixin, ListView):
     model = Attachment
     template_name = "agendas/lista.html"
     extra_context = {
@@ -211,7 +211,7 @@ class AttachmentList(ListView):
         "model_name": "anexo"
     }
 
-class LabelList(ListView):
+class LabelList(LoginRequiredMixin, ListView):
     model = Label
     template_name = "agendas/lista.html"
     extra_context = {

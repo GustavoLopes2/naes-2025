@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 class TaskStatus(models.TextChoices):
     PENDING = 'Pending', 'Pending'
@@ -18,6 +19,7 @@ class Task(models.Model):
     project = models.ForeignKey('Project', on_delete=models.PROTECT, related_name='tasks')
     category = models.ForeignKey('Category', on_delete=models.PROTECT, related_name='tasks')
     labels = models.ManyToManyField('Label', blank=True, related_name='tasks')
+    criado_por = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         if self.due_date and self.created_at and self.due_date < self.created_at.date():
@@ -28,6 +30,7 @@ class Task(models.Model):
 class Category(models.Model):
     name = models.CharField(max_length=50, verbose_name="nome")
     description = models.CharField(max_length=200, verbose_name="descrição", blank=True)
+    criado_por = models.ForeignKey(User, on_delete=models.CASCADE, related_name="categorias")
 
     def __str__(self):
         return f"{self.name}"
@@ -38,6 +41,7 @@ class Project(models.Model):
     description = models.CharField(max_length=200, verbose_name="descrição", blank=True)
     created_at = models.DateTimeField(verbose_name="criado em", auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name="atualizado em", auto_now=True)
+    criado_por = models.ForeignKey(User, on_delete=models.CASCADE, related_name="projetos")
 
     def __str__(self):
         return f"{self.name}"
@@ -56,6 +60,7 @@ class Attachment(models.Model):
     file = models.FileField(upload_to='attachments/', verbose_name="arquivo")
     uploaded_at = models.DateTimeField(verbose_name="enviado em", auto_now_add=True)
     task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='attachments')
+    enviado_por = models.ForeignKey(User, on_delete=models.CASCADE, related_name="anexos")
 
     def __str__(self):
         return f"Anexo para tarefa: {self.task.title}"
