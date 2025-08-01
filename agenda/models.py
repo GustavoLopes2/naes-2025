@@ -30,7 +30,7 @@ class Task(models.Model):
 class Category(models.Model):
     name = models.CharField(max_length=50, verbose_name="nome")
     description = models.CharField(max_length=200, verbose_name="descrição", blank=True)
-    criado_por = models.ForeignKey(User, on_delete=models.CASCADE, related_name="categorias")
+    criado_por = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.name}"
@@ -50,7 +50,7 @@ class Project(models.Model):
 class Comment(models.Model):
     content = models.TextField(verbose_name="conteúdo")
     created_at = models.DateTimeField(verbose_name="criado em", auto_now_add=True)
-    task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='comments')
+    task = models.ForeignKey(Task, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"Comentário: {self.content[:30]}..."
@@ -60,7 +60,7 @@ class Attachment(models.Model):
     file = models.FileField(upload_to='attachments/', verbose_name="arquivo")
     uploaded_at = models.DateTimeField(verbose_name="enviado em", auto_now_add=True)
     task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='attachments')
-    enviado_por = models.ForeignKey(User, on_delete=models.CASCADE, related_name="anexos")
+    enviado_por = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"Anexo para tarefa: {self.task.title}"
