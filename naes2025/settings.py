@@ -82,15 +82,19 @@ WSGI_APPLICATION = 'naes2025.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "postgres",
-        "USER": "postgres.sgwoscadsupshetaiyyq",
-        "PASSWORD": "38832829Gu",
-        "HOST": "aws-0-sa-east-1.pooler.supabase.com",
-        "PORT": "6543",
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'gugas$default',
+        'USER': 'gugas',
+        'PASSWORD': '38832829gu',
+        'HOST': 'gugas.mysql.pythonanywhere-services.com',
+        'PORT': '3306',
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
+        },
     }
 }
+
 
 #DATABASES = {
 #    'default': {
@@ -136,7 +140,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
-STATIC_ROOT = 'static_gcloud/'
+STATIC_ROOT = 'static_web/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
