@@ -9,6 +9,7 @@ class TaskStatus(models.TextChoices):
 
 
 class Task(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE, related_name="tarefas_usuario")
     title = models.CharField(max_length=50, verbose_name="título")
     description = models.CharField(max_length=200, verbose_name="descrição", blank=True)
     status = models.CharField(max_length=20, choices=TaskStatus.choices, default=TaskStatus.PENDING)
@@ -19,7 +20,7 @@ class Task(models.Model):
     project = models.ForeignKey('Project', on_delete=models.PROTECT, related_name='tasks')
     category = models.ForeignKey('Category', on_delete=models.PROTECT, related_name='tasks')
     labels = models.ManyToManyField('Label', blank=True, related_name='tasks')
-    criado_por = models.ForeignKey(User, on_delete=models.CASCADE)
+    criado_por = models.ForeignKey(User, on_delete=models.CASCADE, related_name="tarefas_criadas")
 
     def __str__(self):
         if self.due_date and self.created_at and self.due_date < self.created_at.date():

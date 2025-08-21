@@ -1,4 +1,5 @@
 from django.views.generic import TemplateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 class TelaInicial(TemplateView):
     template_name = 'paginasweb/modelos/index.html'
@@ -19,5 +20,6 @@ class DashboardView(TemplateView):
 class SobreView(TemplateView):
     template_name = "paginasweb/sobre.html"
 
-class AgendaView(TemplateView):
-    template_name = "paginasweb/agenda.html"
+class AgendaView(LoginRequiredMixin, TemplateView):
+    template_name = "paginasweb/index.html"
+    login_url = 'login'

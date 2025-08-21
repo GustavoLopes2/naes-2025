@@ -12,6 +12,11 @@ class TaskCreate(LoginRequiredMixin, CreateView):
     fields = ["title", "description", "status", "due_date", "priority", "project", "category", "labels"]
     extra_context = {"titulo": "Cadastro de Tarefa",
                      "model_name": "tarefas"}
+    
+    def form_valid(self, form):
+        form.instance.usuario = self.request.user
+        form.instance.criado_por = self.request.user
+        return super().form_valid(form)
 
 class CategoryCreate(LoginRequiredMixin, CreateView):
     template_name = "agendas/form.html"
@@ -162,6 +167,9 @@ class TaskList(LoginRequiredMixin, ListView):
         ],
         "model_name": "tarefa"
     }
+    
+    def get_queryset(self):
+        return Task.objects.filter(usuario=self.request.user)
 
 class CategoryList(LoginRequiredMixin, ListView):
     model = Category
