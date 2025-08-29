@@ -3,7 +3,7 @@ from django.views.generic.list import ListView
 from django.urls import reverse_lazy
 from .models import Task, Category, Project, Comment, Attachment, Label
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from django.shortcuts import get_object_or_404
 
 class TaskCreate(LoginRequiredMixin, CreateView):
     template_name = "agendas/form.html"
@@ -25,6 +25,11 @@ class CategoryCreate(LoginRequiredMixin, CreateView):
     fields = ["name", "description"]
     extra_context = {"titulo": "Cadastro de Categoria",
                      "model_name": "categorias"}
+    
+    def form_valid(self, form):
+        form.instance.usuario = self.request.user
+        form.instance.criado_por = self.request.user
+        return super().form_valid(form)
 
 
 class ProjectCreate(LoginRequiredMixin, CreateView):
@@ -34,6 +39,11 @@ class ProjectCreate(LoginRequiredMixin, CreateView):
     fields = ["name", "description"]
     extra_context = {"titulo": "Cadastro de Projeto",
                      "model_name": "projetos"}
+    
+    def form_valid(self, form):
+        form.instance.usuario = self.request.user
+        form.instance.criado_por = self.request.user
+        return super().form_valid(form)
 
 
 class CommentCreate(LoginRequiredMixin, CreateView):
@@ -71,6 +81,10 @@ class TaskUpdate(LoginRequiredMixin, UpdateView):
     fields = ["title", "description", "status", "due_date", "priority", "project", "category", "labels"]
     extra_context = {"titulo": "Editar Tarefa",
                      "model_name": "tarefas"}
+    
+    def get_object(self):
+        return get_object_or_404(Task, pk=self.kwargs["pk"], criado_por=self.request.user)
+
 
 class CategoryUpdate(LoginRequiredMixin, UpdateView):
     template_name = "agendas/form.html"
@@ -79,6 +93,9 @@ class CategoryUpdate(LoginRequiredMixin, UpdateView):
     fields = ["name", "description"]
     extra_context = {"titulo": "Editar Categoria",
                      "model_name": "categorias"}
+    
+    def get_object(self):
+        return get_object_or_404(Category, pk=self.kwargs["pk"], criado_por=self.request.user)
 
 
 class ProjectUpdate(LoginRequiredMixin, UpdateView):
@@ -88,6 +105,9 @@ class ProjectUpdate(LoginRequiredMixin, UpdateView):
     fields = ["name", "description"]
     extra_context = {"titulo": "Editar Projeto",
                      "model_name": "projetos"}
+    
+    def get_object(self):
+        return get_object_or_404(Project, pk=self.kwargs["pk"], criado_por=self.request.user)
 
 
 class CommentUpdate(LoginRequiredMixin, UpdateView):
@@ -124,17 +144,26 @@ class TaskDelete(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy("listar-tarefas")
     extra_context = {"titulo": "Deletar Tarefa"}
 
+    def get_object(self):
+        return get_object_or_404(Task, pk=self.kwargs["pk"], criado_por=self.request.user)
+
 class CategoryDelete(LoginRequiredMixin, DeleteView):
     template_name = "agendas/form.html"
     model = Category
     success_url = reverse_lazy("listar-categorias")
     extra_context = {"titulo": "Deletar Categoria"}
 
+    def get_object(self):
+        return get_object_or_404(Category, pk=self.kwargs["pk"], criado_por=self.request.user)
+
 class ProjectDelete(LoginRequiredMixin, DeleteView):
     template_name = "agendas/form.html"
     model = Project
     success_url = reverse_lazy("listar-projetos")
     extra_context = {"titulo": "Deletar Projeto"}
+
+    def get_object(self):
+        return get_object_or_404(Project, pk=self.kwargs["pk"], criado_por=self.request.user)
 
 class CommentDelete(LoginRequiredMixin, DeleteView):
     template_name = "agendas/form.html"
